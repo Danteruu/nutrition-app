@@ -45,17 +45,19 @@ class _SearchScreenState extends State<SearchScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              'https://media.istockphoto.com/photos/healthy-food-clean-eating-selection-picture-id854725372?k=6&m=854725372&s=612x612&w=0&h=Eu16NJz79hsvTC6DkuEzMu46GN8vC2LtV4alBHBqZZk=',
+              'https://i.pinimg.com/originals/27/87/4c/27874cdabda0d2866ea786ab41fca258.jpg',
             ),
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 30.0),
+            margin: EdgeInsets.all(30.0),
+            height: 400.0,
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(30.0),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,10 +65,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 Text(
                   'Daily Meal Planner',
                   style: TextStyle(
-                    fontSize: 32.0,
+                    fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2.0,
                   ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 RichText(
                   text: TextSpan(
@@ -114,10 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         value: priority,
                         child: Text(
                           priority,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.0
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 18.0),
                         ),
                       );
                     }).toList(),

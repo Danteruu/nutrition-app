@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nutrition/models/meal_model.dart';
 import 'package:nutrition/models/meal_plan_model.dart';
 import 'package:nutrition/models/recipe_model.dart';
+import 'package:nutrition/screens/recipe_screen.dart';
 import 'package:nutrition/services/api_service.dart';
 
 class MealsScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _MealsScreenState extends State<MealsScreen> {
         vertical: 10.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.85),
         borderRadius: BorderRadius.circular(15.0),
         boxShadow: [
           BoxShadow(
@@ -44,7 +45,7 @@ class _MealsScreenState extends State<MealsScreen> {
             ),
           ),
           SizedBox(
-            height: 10.0,
+            height: 20.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +58,7 @@ class _MealsScreenState extends State<MealsScreen> {
                 ),
               ),
               Text(
-                'Protein: ${widget.mealPlan.protein.toString()} g',
+                'Carbs: ${widget.mealPlan.carbs.toString()} g',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w600,
@@ -72,14 +73,14 @@ class _MealsScreenState extends State<MealsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Calories: ${widget.mealPlan.calories.toString()} cal',
+                'Fat: ${widget.mealPlan.fat.toString()} g',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                'Protein: ${widget.mealPlan.protein.toString()} g',
+                'Proteins: ${widget.mealPlan.protein.toString()} g',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w600,
@@ -98,15 +99,16 @@ class _MealsScreenState extends State<MealsScreen> {
       onTap: () async {
         Recipe recipe =
             await APIService.instance.fetchRecipe(meal.id.toString());
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (_) => RecipeScreen(
-        //         mealType,
-        //         recipe: recipe,
-        //       ),
-        //     ));
-      },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => RecipeScreen(
+              mealType: mealType,
+              recipe: recipe,
+            ),
+          ),
+        );
+      },         
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -122,9 +124,7 @@ class _MealsScreenState extends State<MealsScreen> {
               vertical: 10.0,
             ),
             decoration: BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
-                  image: NetworkImage(meal.imageUrl), fit: BoxFit.cover),
+              color: Colors.white.withOpacity(0.85),
               borderRadius: BorderRadius.circular(15.0),
               boxShadow: [
                 BoxShadow(
@@ -183,15 +183,25 @@ class _MealsScreenState extends State<MealsScreen> {
       appBar: AppBar(
         title: Text('Your Meal Plan'),
       ),
-      body: ListView.builder(
-        itemCount: 1 + widget.mealPlan.meals.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return _buildTotalNutrientsCard();
-          }
-          Meal meal = widget.mealPlan.meals[index - 1];
-          return _buildMealCard(meal, index - 1);
-        },
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              'https://i.pinimg.com/originals/27/87/4c/27874cdabda0d2866ea786ab41fca258.jpg',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: 1 + widget.mealPlan.meals.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0) {
+              return _buildTotalNutrientsCard();
+            }
+            Meal meal = widget.mealPlan.meals[index - 1];
+            return _buildMealCard(meal, index - 1);
+          },
+        ),
       ),
     );
   }
