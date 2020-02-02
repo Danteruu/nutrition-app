@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutrition/screens/search_screen.dart';
 
 void main() => runApp(MyApp());
 
