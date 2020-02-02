@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutrition/models/meal_plan_model.dart';
+import 'package:nutrition/screens/meals_screen.dart';
 import 'package:nutrition/services/api_service.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -29,12 +30,12 @@ class _SearchScreenState extends State<SearchScreen> {
       targetCalories: _targetCalories.toInt(),
       diet: _diet,
     );
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => MealsScreen(mealPlan: mealPlan),
-    //   );
-    // )
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MealsScreen(mealPlan: mealPlan),
+      ),
+    );
   }
 
   @override
